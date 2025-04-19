@@ -1,0 +1,44 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ topic.text }}</h2>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add New Entry
+    </a>
+</div>
+
+{% if entries %}
+    <div class="row">
+        {% for entry in entries %}
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <p class="card-text">{{ entry.text|linebreaks }}</p>
+                                <p class="card-text">
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i>Added: {{ entry.date_added|date:"F j, Y, g:i a" }}</small>
+                                </p>
+                            </div>
+                            <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-pencil me-1"></i>Edit Entry
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <p class="mb-0"><i class="bi bi-info-circle me-2"></i>No entries have been added yet. Click the "Add New Entry" button to get started!</p>
+    </div>
+{% endif %}
+
+<div class="mt-4">
+    <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Topics
+    </a>
+</div>
+{% endblock content %}

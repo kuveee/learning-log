@@ -1,0 +1,18 @@
+{% extends "learning_logs/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3>Add a new topic</h3>
+    
+    <form method="post" action="{% url 'learning_logs:new_topic' %}" class="form">
+      {% csrf_token %}
+      <div class="form-group mb-3">
+        {{ form.text.label_tag }}
+        {{ form.text|add_class:"form-control" }}
+      </div>
+      <button type="submit" class="btn btn-primary">Add topic</button>
+    </form>
+  </div>
+{% endblock content %}
